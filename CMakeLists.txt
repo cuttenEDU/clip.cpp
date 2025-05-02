@@ -280,3 +280,8 @@ endif()
 if (CLIP_BUILD_TESTS)
     add_subdirectory(tests)
 endif()
+
+if (MSVC)
+	set_target_properties(ggml PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+	set_target_properties(clip PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+endif()
