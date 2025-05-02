@@ -260,7 +260,10 @@ add_library(clip
 
 target_include_directories(clip PUBLIC .)
 target_compile_features(clip PUBLIC cxx_std_11)
-target_link_libraries(clip PRIVATE ggml ${CLIP_EXTRA_LIBS} pthread)
+target_link_libraries(clip PRIVATE ggml ${CLIP_EXTRA_LIBS})
+if (MSVC)
+    target_link_libraries(clip PRIVATE pthread)
+endif ()
 
 if (BUILD_SHARED_LIBS)
     set(CLIP_BUILD_EXAMPLES OFF)
@@ -271,7 +274,7 @@ if (BUILD_SHARED_LIBS)
     if (MSVC)
         set_target_properties(ggml PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
         set_target_properties(clip PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
-    endif()
+    endif ()
     set(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR})
     install(TARGETS ggml clip
             LIBRARY DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/examples/python_bindings/clip_cpp)
