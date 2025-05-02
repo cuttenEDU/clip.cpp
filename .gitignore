@@ -7,3 +7,5 @@ models/*.bin
 __pycache__
 dist
 *.gguf
+/cmake-build-release/
+.idea
